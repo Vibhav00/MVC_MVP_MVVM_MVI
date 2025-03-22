@@ -179,6 +179,83 @@ Software architecture plays a crucial role in building scalable and maintainable
 
 ---
 
+## differences
+
+## 🆚 MVC vs MVP
+
+| Feature               | **MVC (Model-View-Controller)**       | **MVP (Model-View-Presenter)**           |
+| --------------------- | ------------------------------------- | ---------------------------------------- |
+| 📅 **Introduced**     | 1979                                  | 1996                                     |
+| 🏗 **Structure**       | View & Controller are tightly coupled | View & Presenter are separated           |
+| 🔄 **Data Flow**      | Bidirectional                         | Unidirectional                           |
+| 🏷 **Role of View**    | Handles UI & user interaction         | Passive, receives updates from Presenter |
+| 🧠 **Logic Handling** | Controller manages business logic     | Presenter manages UI logic               |
+| 🧪 **Testability**    | Low (View & Controller are coupled)   | High (Easier to unit test Presenter)     |
+| 🔄 **Data Binding**   | Not supported                         | Manually updates View                    |
+| 🏗 **Complexity**      | Simple for small apps                 | Scalable for medium-sized apps           |
+| 🛠 **Use Case**        | Small apps with less UI complexity    | Apps requiring better testability        |
+| ❌ **Demerits**       | Not scalable, hard to test            | Presenter grows large in complex apps    |
+
+### ✅ When to Use What?
+
+- **Use MVC** for **small apps** where testability is not a concern.
+- **Use MVP** for **medium-sized applications** where UI logic should be testable.
+
+## 🆚 MVP vs MVVM
+
+| Feature                 | **MVP (Model-View-Presenter)**    | **MVVM (Model-View-ViewModel)**                |
+| ----------------------- | --------------------------------- | ---------------------------------------------- |
+| 📅 **Introduced**       | 1996                              | 2005                                           |
+| 🏗 **Structure**         | View → Presenter → Model          | View → ViewModel → Model                       |
+| 🔄 **Data Flow**        | Presenter handles UI updates      | ViewModel automatically updates View           |
+| 🔄 **Data Binding**     | Manual updates required           | Supports **LiveData** & **Data Binding**       |
+| 🏷 **Role of View**      | Passive, interacts with Presenter | Observes ViewModel changes                     |
+| 🧠 **Logic Handling**   | Presenter holds UI logic          | ViewModel holds UI & business logic            |
+| 🧪 **Testability**      | High (Presenter is testable)      | Higher (ViewModel doesn’t depend on View)      |
+| 📉 **Boilerplate Code** | More due to manual updates        | Less due to LiveData & Data Binding            |
+| 🛠 **Use Case**          | Medium-sized apps                 | Apps using **LiveData, Coroutines, or RxJava** |
+| ❌ **Demerits**         | Presenter becomes bloated         | Can lead to complex state management           |
+
+### ✅ When to Use What?
+
+- **Use MVP** for **apps that require testable UI logic** but don’t need LiveData.
+- **Use MVVM** for **apps that rely on LiveData, Coroutines, and require less boilerplate**.
+
+## 🆚 MVVM vs MVI
+
+| Feature                 | **MVVM (Model-View-ViewModel)**          | **MVI (Model-View-Intent)**                   |
+| ----------------------- | ---------------------------------------- | --------------------------------------------- |
+| 📅 **Introduced**       | 2005                                     | 2017                                          |
+| 🏗 **Structure**         | View ↔ ViewModel ↔ Model                 | View → Intent → Model → State                 |
+| 🔄 **Data Flow**        | Two-way binding                          | **Unidirectional data flow**                  |
+| 🔄 **State Management** | Complex, can have unexpected changes     | Centralized state management                  |
+| 📉 **Boilerplate Code** | Less due to Data Binding                 | Requires **more boilerplate**                 |
+| 🏷 **Role of View**      | Observes ViewModel & updates UI          | Renders UI based on state updates             |
+| 🧠 **Logic Handling**   | ViewModel holds logic                    | State is **immutable**, reducing side effects |
+| 🧪 **Testability**      | High                                     | **Highest** (State-based, easier to debug)    |
+| 🚀 **Performance**      | Fast, but can have state inconsistencies | Predictable, but more resource-heavy          |
+| 🛠 **Use Case**          | Apps with **LiveData & Coroutines**      | Apps needing **predictable state management** |
+| ❌ **Demerits**         | State inconsistencies, complex debugging | More **boilerplate**, not beginner-friendly   |
+
+### ✅ When to Use What?
+
+- **Use MVVM** if you need **LiveData, two-way data binding, or Coroutines**.
+- **Use MVI** if you want **fully predictable state management** and are comfortable with **RxJava or Kotlin Flow**.
+
+---
+
+## 🏆 Final Thoughts
+
+| Transition     | Key Improvement                                        |
+| -------------- | ------------------------------------------------------ |
+| **MVC → MVP**  | Reduced tight coupling, improved testability           |
+| **MVP → MVVM** | Less boilerplate, better data handling with LiveData   |
+| **MVVM → MVI** | Unidirectional data flow, centralized state management |
+
+Choosing the right architecture depends on the **app size, complexity, testability needs, and preference for state management**. 🚀
+
+---
+
 ## 📚 References
 
 - [Trygve Reenskaug's MVC History](https://folk.universitetetioslo.no/trygver/themes/mvc/mvc-index.html)
